@@ -1,1 +1,15 @@
-{% extends 'Layout' %}{% block main %}<h1 class='h4 mb-3'>Ask a public question</h1><div class='alert alert-info'>Add a <strong>Basic Form</strong> for the <strong>pp_question</strong> table here. Suggested fields: <code>pp_title</code>, <code>pp_body</code>, <code>pp_tags</code>.</div>{% endblock %}
+
+{% extends 'Layout' %}
+{% block main %}
+  <h1 class="h4 mb-3">Ask a public question</h1>
+  <div class="alert alert-info">
+    This starter uses a **Basic Form** for the **pp_question** table. In Design Studio,
+    add a form component here. Suggested fields: `pp_title`, `pp_body`, `pp_tags`.
+  </div>
+  <p>Tips:</p>
+  <ul>
+    <li>Use clear titles (what, where, when, expected vs actual).</li>
+    <li>Add code blocks and error messages in the body.</li>
+    <li>Separate tags by commas (e.g., <code>javascript,react</code>).</li>
+  </ul>
+{% endblock %}
