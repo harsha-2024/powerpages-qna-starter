@@ -1,0 +1,4 @@
+
+pp_questionid,pp_body,pp_vote
+<GUID-PLACEHOLDER>,"Use flexbox and justify-content:center; align-items:center; on the parent.",4
+<GUID-PLACEHOLDER>,"Use lodash.debounce or a simple setTimeout wrapper.",2

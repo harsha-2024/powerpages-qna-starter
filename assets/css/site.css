@@ -1,0 +1,5 @@
+
+/* Minimal styles for Q&A starter */
+.list-group-item .badge { float: right; }
+code { background: #f6f8fa; padding: .1rem .3rem; border-radius: .2rem; }
+pre code { display: block; padding: .75rem; }

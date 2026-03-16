@@ -1,0 +1,78 @@
+{
+  "tables": [
+    {
+      "logicalName": "pp_question",
+      "displayName": "Question",
+      "columns": [
+        {
+          "logicalName": "pp_title",
+          "type": "SingleLine.Text",
+          "required": true
+        },
+        {
+          "logicalName": "pp_body",
+          "type": "MultipleLines.Text"
+        },
+        {
+          "logicalName": "pp_tags",
+          "type": "SingleLine.Text"
+        },
+        {
+          "logicalName": "pp_vote",
+          "type": "WholeNumber",
+          "default": 0
+        },
+        {
+          "logicalName": "pp_author",
+          "type": "Lookup",
+          "target": "contact"
+        }
+      ]
+    },
+    {
+      "logicalName": "pp_answer",
+      "displayName": "Answer",
+      "columns": [
+        {
+          "logicalName": "pp_body",
+          "type": "MultipleLines.Text"
+        },
+        {
+          "logicalName": "pp_vote",
+          "type": "WholeNumber",
+          "default": 0
+        },
+        {
+          "logicalName": "pp_questionid",
+          "type": "Lookup",
+          "target": "pp_question"
+        },
+        {
+          "logicalName": "pp_author",
+          "type": "Lookup",
+          "target": "contact"
+        }
+      ]
+    },
+    {
+      "logicalName": "pp_qtag",
+      "displayName": "QTag",
+      "columns": [
+        {
+          "logicalName": "pp_name",
+          "type": "SingleLine.Text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "logicalName": "pp_question_pp_qtag",
+      "type": "ManyToMany",
+      "displayName": "Question_Tag",
+      "relationship": {
+        "table1": "pp_question",
+        "table2": "pp_qtag"
+      }
+    }
+  ]
+}

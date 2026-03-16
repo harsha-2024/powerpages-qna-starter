@@ -1,0 +1,82 @@
+
+{% extends 'Layout' %}
+{% block main %}
+  {% assign qid = request.params.id %}
+  {% if qid == nil or qid == '' %}
+    <div class="alert alert-danger">Missing question id in URL.</div>
+  {% else %}
+    {% fetchxml q %}
+      <fetch top='1'>
+        <entity name='pp_question'>
+          <attribute name='pp_questionid'></attribute>
+          <attribute name='pp_title'></attribute>
+          <attribute name='pp_body'></attribute>
+          <attribute name='pp_tags'></attribute>
+          <attribute name='pp_vote'></attribute>
+          <attribute name='createdon'></attribute>
+          <filter>
+            <condition attribute='pp_questionid' operator='eq' value='{{ qid }}'></condition>
+          </filter>
+        </entity>
+      </fetch>
+    {% endfetchxml %}
+
+    {% assign question = q.results.entities | first %}
+    {% if question %}
+      <article>
+        <header class="mb-3">
+          <h1 class="h4">{{ question.pp_title }}</h1>
+          <div class="small text-muted">Asked {{ question.createdon | date: 'yyyy-MM-dd HH:mm' }} · Tags: {{ question.pp_tags }}</div>
+        </header>
+        <div class="mb-3">{{ question.pp_body | newline_to_br }}</div>
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-outline-success" data-vote="up" data-id="{{ question.pp_questionid }}">▲ Upvote</button>
+          <span class="badge bg-secondary" id="q-votes">{{ question.pp_vote | default: 0 }}</span>
+          <button class="btn btn-sm btn-outline-danger" data-vote="down" data-id="{{ question.pp_questionid }}">▼ Downvote</button>
+        </div>
+      </article>
+
+      <hr class="my-4"/>
+      <h2 class="h6">Answers</h2>
+      {% fetchxml a_list %}
+        <fetch>
+          <entity name='pp_answer'>
+            <attribute name='pp_answerid'></attribute>
+            <attribute name='pp_body'></attribute>
+            <attribute name='pp_vote'></attribute>
+            <attribute name='createdon'></attribute>
+            <filter>
+              <condition attribute='pp_questionid' operator='eq' value='{{ qid }}'></condition>
+            </filter>
+            <order attribute='pp_vote' descending='true'></order>
+          </entity>
+        </fetch>
+      {% endfetchxml %}
+
+      <div class="list-group mb-4">
+        {% for a in a_list.results.entities %}
+          <div class="list-group-item">
+            <div class="mb-2">{{ a.pp_body | newline_to_br }}</div>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-sm btn-outline-success" data-vote="up" data-id="{{ a.pp_answerid }}" data-type="answer">▲</button>
+              <span class="badge bg-secondary">{{ a.pp_vote | default: 0 }}</span>
+              <button class="btn btn-sm btn-outline-danger" data-vote="down" data-id="{{ a.pp_answerid }}" data-type="answer">▼</button>
+              <small class="text-muted ms-auto">{{ a.createdon | date: 'yyyy-MM-dd HH:mm' }}</small>
+            </div>
+          </div>
+        {% else %}
+          <div class="alert alert-info">No answers yet. Be the first to answer.</div>
+        {% endfor %}
+      </div>
+
+      <div class="alert alert-secondary">
+        To enable answering: add a **Basic Form** for *pp_answer* filtered to this question
+        (set hidden default for `pp_questionid` to the current id), or wire the button to
+        a Power Pages Web API / Power Automate flow.
+      </div>
+
+    {% else %}
+      <div class="alert alert-warning">Question not found or you don't have permission.</div>
+    {% endif %}
+  {% endif %}
+{% endblock %}
