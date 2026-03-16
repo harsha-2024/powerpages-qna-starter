@@ -1,0 +1,5 @@
+adx_webfile:
+  adx_name: site.js
+  adx_partialurl: site.js
+  adx_mimetype: application/javascript
+  adx_content: ./site.js

@@ -53,26 +53,6 @@
           "target": "contact"
         }
       ]
-    },
-    {
-      "logicalName": "pp_qtag",
-      "displayName": "QTag",
-      "columns": [
-        {
-          "logicalName": "pp_name",
-          "type": "SingleLine.Text",
-          "required": true
-        }
-      ]
-    },
-    {
-      "logicalName": "pp_question_pp_qtag",
-      "type": "ManyToMany",
-      "displayName": "Question_Tag",
-      "relationship": {
-        "table1": "pp_question",
-        "table2": "pp_qtag"
-      }
     }
   ]
 }

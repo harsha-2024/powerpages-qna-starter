@@ -1,0 +1,5 @@
+adx_webfile:
+  adx_name: site.css
+  adx_partialurl: site.css
+  adx_mimetype: text/css
+  adx_content: ./site.css
